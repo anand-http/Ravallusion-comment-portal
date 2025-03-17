@@ -76,6 +76,7 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
     const [replyBody, setReplyBody] = useState("");
     const inputRef = useRef(null);
     const [deleteComment, { isLoading }] = useDeleteCommentMutation();
+    const src  = !avatar ? "/prismatic.png" : avatar;
 
     // Scroll to input when addReply is true
     useEffect(() => {
@@ -116,8 +117,8 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
                 <div className='flex gap-x-2'>
                     <div className="w-8 h-8 rounded-full bg-red-300 relative">
                         <Image
-                            src={"/prismatic.png"}
-                            alt="user"
+                            src={src}
+                            alt="user pic"
                             fill
                             style={{ borderRadius: "100%", objectFit: "cover" }}
                         />
@@ -184,12 +185,6 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
                             </div>
 
                         </div>
-
-                        {/* {replies.map((reply, index) => (
-                            <p key={index} className="text-xs text-gray-100 ">
-                                {reply}
-                            </p>
-                        ))} */}
 
                     </motion.div>
                 )}
