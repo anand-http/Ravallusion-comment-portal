@@ -6,8 +6,8 @@ export async function middleware(request) {
     const refreshToken = request.cookies.get("refreshToken")?.value || "";
     const isLoggedIn = !!refreshToken;
 
-    const restrictedPaths = ["/dashboard",
-        "/dashboard/player-dashboard/[course]"];
+    const restrictedPaths = [
+        "/player-dashboard/beginner"];
     const authPaths = ["/"];
 
     // Static file handling (skip middleware for these)
@@ -31,7 +31,7 @@ export async function middleware(request) {
 
     // If logged in, prevent access to the login page
     if (isLoggedIn && authPaths.includes(pathname)) {
-        return NextResponse.redirect(new URL("/dashboard/player-dashboard/[course]", request.url));
+        return NextResponse.redirect(new URL("player-dashboard/beginner", request.url));
     }
 
     return NextResponse.next();

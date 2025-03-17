@@ -158,7 +158,7 @@ export const LessonCard = ({
   const path = usePathname();
   const fetchVideo = () => {
     const level = path.includes("beginner") ? "beginner" : "advanced";
-    route.push(`/dashboard/player-dashboard/${level}?videoId=${videoId}`);
+    route.push(`/player-dashboard/${level}?videoId=${videoId}`);
     onPlay();
   };
   const removeBookmark = async () => {

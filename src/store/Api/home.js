@@ -36,7 +36,6 @@ export const homeApi = createApi({
             query: () => `content/faq`
         }),
 
-
         getStaticData: builder.query({
             query: () => `content/page`
         }),

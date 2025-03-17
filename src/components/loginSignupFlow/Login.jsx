@@ -20,7 +20,7 @@ const Login = () => {
             const res = await signIn({ email, password }).unwrap();
             console.log(res);
             if (res.success) {
-                route.push('/dashboard/player-dashboard/beginner');
+                route.push('/player-dashboard/beginner');
             }
 
         } catch (error) {

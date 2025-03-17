@@ -8,25 +8,8 @@ export const courseApi = createApi({
     endpoints: (builder) => ({
         getSubscribedPlanCourse: builder.query({
             query: (planId) => `course/getSubscribedPlanCourse/${planId}`
-        }),
-        assignmentSubmit : builder.mutation({
-            query: (body) => ({
-                url: "submitted-assignment",
-                method: "POST",
-                credentials: "include",
-                body,
-            }),
-        }),
-        uploadFile: builder.mutation({
-            query: (body) => ({
-                url: "submitted-assignment/upload-answer",
-                method: "POST",
-                credentials: "include",
-                body,
-            }),
         })
-       
     }),
 })
 
-export const { useGetSubscribedPlanCourseQuery,useAssignmentSubmitMutation,useUploadFileMutation} = courseApi;
+export const { useGetSubscribedPlanCourseQuery } = courseApi;

@@ -9,6 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { setShowProfileCard } from '@/store/slice/general';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLogoutMutation } from '@/store/Api/auth';
+import { toast } from 'react-toastify';
 
 
 const DashboardNavbar = () => {
@@ -23,10 +24,10 @@ const DashboardNavbar = () => {
 
       <div className='flex gap-x-2 items-center'>
 
-        <BoxComponent show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} href={'/dashboard/player-dashboard/advanced'} />
+        <BoxComponent show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} href={'/player-dashboard/advanced'} />
 
 
-        <BoxComponent show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Premier pro"} href={'/dashboard/player-dashboard/beginner'} />
+        <BoxComponent show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Premier pro"} href={'/player-dashboard/beginner'} />
 
         <BoxComponent show={show} icon={<Logout />} title={"Logout"} isLogout={true} />
 
@@ -85,72 +86,14 @@ const SideBar = ({ openSidebar, setOpenSidebar, urlpath }) => {
         </div>
 
         <div className='flex flex-col gap-y-4'>
-          <BoxComponentMobile href={"/dashboard/player-dashboard/advanced"} show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} />
-          <BoxComponentMobile href={"/dashboard/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Photoshop"} />
-          <BoxComponentMobile href={"/dashboard/introductory"} show={show} icon={<BulbIcon />} title={"Introductory"} introductory={true} />
-
-          <BoxComponentMobile setOpenSidebar={setOpenSidebar} profileMobile={urlpath === 'profile' ? true : false} show={show} icon={<div className='bg-gray-300 rounded-full w-7 h-7 relative'>
-            <Image
-              src={'/URL_of_image_for_FX_Console_Plugin.jpeg'}
-              alt='Profile pic'
-              layout="fill"
-              objectFit="cover"
-              className="rounded-full"
-            /> </div>} title={"Profile"} title1={"Advance"} title2={"Beginner"} href={"/dashboard/profile"} />
+          <BoxComponentMobile href={"/player-dashboard/advanced"} show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} />
+          <BoxComponentMobile href={"/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Photoshop"} />
+          <BoxComponentMobile show={show} icon={<Logout />} title={"Logout"} isLogout={true} />
         </div>
       </motion.div>
     </>
   )
 }
-
-
-const ProfileComponent = ({ urlpath }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  return (
-    <div className='ml-3 bg-gray-300 rounded-full w-11 h-11 relative hidden lg:block cursor-pointer'
-      onClick={() => {
-        if (urlpath !== 'profile') {
-          router.push('/dashboard/profile');
-        }
-        else {
-          dispatch(setShowProfileCard())
-        }
-      }}
-    >
-      <Image
-        src={'/URL_of_image_for_FX_Console_Plugin.jpeg'}
-        alt='Profile pic'
-        layout="fill"
-        objectFit="cover"
-        className="rounded-full"
-      />
-
-
-    </div>
-  )
-}
-
-// const ProfileDropdown = ({ title1, title2, href }) => {
-//   return (
-//     <motion.div
-//       className={"absolute top-14 right-0 overflow-hidden w-36 border-b border-x bg-[#040C19] border-[var(--neon-purple)] px-4 py-2 z-10 before:content-[''] before:absolute before:-top-[9px] before:right-4 before:w-0 before:h-0 before:border-l-[10px] before:border-r-[10px] before:border-b-[10px] before:border-l-transparent before:border-r-transparent before:border-b-[#040C19] before:z-10"}
-//       initial={{ height: 0, opacity: 0 }}
-//       animate={{ height: 'auto', opacity: 1 }}
-//       transition={{ duration: 0.3, ease: 'easeInOut' }}
-//     >
-//       <div className="flex flex-col gap-y-2">
-//         <Link href={href} className="text-xs text-white flex justify-between items-center  gap-x-4">
-//           {title1} <ArrowRight size={21} />
-//         </Link>
-//         <Link href={href} className="text-xs text-white flex justify-between items-center gap-x-4">
-//           {title2} <ArrowRight size={21} />
-//         </Link>
-//       </div>
-//     </motion.div>
-//   );
-// };
 
 
 const BoxComponent = ({ icon, title, isLogout, title1, title2, show, href }) => {
