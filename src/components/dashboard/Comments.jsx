@@ -31,9 +31,9 @@ const Comments = ({ videoId }) => {
 
     return (
         <>
-            <h1 className='text-lg font-semibold '>{comments.length} Comments</h1>
+            <h1 className='text-lg font-semibold mb-6 '>{comments.length} Comments</h1>
 
-            <div className='relative my-4'>
+            {/* <div className='relative my-4'>
                 <Input
                     type="text"
                     value={commentBody}
@@ -47,11 +47,12 @@ const Comments = ({ videoId }) => {
                 <div className='absolute right-5 top-2 cursor-pointer' onClick={handleCreateComment}>
                     <Send />
                 </div>
-            </div>
+            </div> */}
 
             <div className='flex flex-col gap-y-4'>
                 {
                     [...comments].reverse().map((items, i) => (
+                        console.log("items", items),
                         <Comment
                             key={i}
                             comment={items?.comment}
@@ -76,7 +77,8 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
     const [replyBody, setReplyBody] = useState("");
     const inputRef = useRef(null);
     const [deleteComment, { isLoading }] = useDeleteCommentMutation();
-    const src  = !avatar ? "/prismatic.png" : avatar;
+    const src = !avatar ? "/prismatic.png" : avatar;
+    console.log("avatar", avatar)
 
     // Scroll to input when addReply is true
     useEffect(() => {
@@ -137,9 +139,9 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
                             {
                                 reply &&
                                 (
-                                    <div className="flex items-center gap-x-3">
+                                    <div className=" mt-[2px]">
                                         <p
-                                            className="text-[var(--neon-purple)] text-[10px] font-semibold cursor-pointer"
+                                            className="text-[var(--neon-purple)] text-[10px] font-semibold cursor-pointer "
                                             onClick={toggleReplies}
                                         >
                                             {showReplies ? "Hide Replies" : `View Replies`}
@@ -190,7 +192,7 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
                 )}
             </AnimatePresence>
 
-
+{/* Reply input */}
             <AnimatePresence>
                 {
                     addReply &&

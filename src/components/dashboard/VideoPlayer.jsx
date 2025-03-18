@@ -42,7 +42,6 @@ const VideoPlayer = ({
   tooltipView = false,
   className = "",
   setWatchTime,
-  courseProgress,
   videoId,
   watchTime,
 }) => {
@@ -90,17 +89,17 @@ const VideoPlayer = ({
   // const [src, setSrc] = useState(` ${vidAddr}/${source[0]?.value}/360p.m3u8`);
   const [src, setSrc] = useState(source);
 
-  useEffect(() => {
-    const foundVideo = courseProgress?.data?.courseProgress?.find(
-      (v) => v.video === videoId
-    );
-    setIsVideoCompleted(foundVideo?.isCompleted);
-    const lastPosition = foundVideo?.lastPosition;
+  // useEffect(() => {
+  //   const foundVideo = courseProgress?.data?.courseProgress?.find(
+  //     (v) => v.video === videoId
+  //   );
+  //   setIsVideoCompleted(foundVideo?.isCompleted);
+  //   const lastPosition = foundVideo?.lastPosition;
 
-    if (lastPosition) {
-      setLastPosition(foundVideo?.lastPosition);
-    }
-  }, [courseProgress]);
+  //   if (lastPosition) {
+  //     setLastPosition(foundVideo?.lastPosition);
+  //   }
+  // }, [courseProgress]);
 
   useEffect(() => {
     setIsVideoFullScreen && setIsVideoFullScreen(isFullScreen);

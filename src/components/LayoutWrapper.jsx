@@ -10,7 +10,6 @@ const LayoutWrapper = ({ children }) => {
     <Provider store={store}>
       <ToastContainer />
       {children}
-
     </Provider >
   )
 }

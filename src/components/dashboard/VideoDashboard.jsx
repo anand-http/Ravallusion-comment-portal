@@ -7,13 +7,12 @@ import VideoDescription from "@/components/dashboard/VideoDescription";
 import VideoPlayer from "@/components/dashboard/VideoPlayer";
 import {
   useGetVideoQuery,
-  useLazyGetVideoQuery,
 } from "@/store/Api/introAndBookmark";
-import {
-  useGetCourseProgressQuery,
-  useGetVideoProgressQuery,
-  useUpdateVideoProgressMutation,
-} from "@/store/Api/videoProgress";
+// import {
+//   useGetCourseProgressQuery,
+//   useGetVideoProgressQuery,
+//   useUpdateVideoProgressMutation,
+// } from "@/store/Api/videoProgress";
 import {
   setUpdatedPercentageWatched,
   setVideoIdOfcurrentVideo,
@@ -22,7 +21,7 @@ import { current } from "@reduxjs/toolkit";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setVideos, updateVideo } from "@/store/slice/course";
+// import { setVideos, updateVideo } from "@/store/slice/course";
 
 const VideoDashboard = () => {
   const searchParams = useSearchParams();
@@ -38,12 +37,12 @@ const VideoDashboard = () => {
 
   const [watchTime, setWatchTime] = useState(0);
 
-  const [updateProgress] = useUpdateVideoProgressMutation();
+  // const [updateProgress] = useUpdateVideoProgressMutation();
 
-  const { data: courseProgress, isLoading: courseProgressLoading } =
-    useGetCourseProgressQuery(courseId, {
-      skip: !courseId,
-    });
+  // const { data: courseProgress, isLoading: courseProgressLoading } =
+  //   useGetCourseProgressQuery(courseId, {
+  //     skip: !courseId,
+  //   });
 
   const [videoId, setVideoId] = useState(null);
 
@@ -77,27 +76,27 @@ const VideoDashboard = () => {
     }
   }, [id]);
 
-  useEffect(() => {
-    // console.log("watch time", watchTime);
-    const progressUpdate = async () => {
-      if (watchTime) {
-        const res = await updateProgress({ id: videoId, watchTime }).unwrap();
-        dispatch(
-          setUpdatedPercentageWatched(res?.videoProgress?.percentageWatched)
-        );
-        dispatch(setVideoIdOfcurrentVideo(videoId));
+  // useEffect(() => {
+  //   // console.log("watch time", watchTime);
+  //   const progressUpdate = async () => {
+  //     if (watchTime) {
+  //       const res = await updateProgress({ id: videoId, watchTime }).unwrap();
+  //       dispatch(
+  //         setUpdatedPercentageWatched(res?.videoProgress?.percentageWatched)
+  //       );
+  //       dispatch(setVideoIdOfcurrentVideo(videoId));
 
-        dispatch(updateVideo(res.videoProgress));
-      }
-    };
-    progressUpdate();
-  }, [watchTime]);
+  //       dispatch(updateVideo(res.videoProgress));
+  //     }
+  //   };
+  //   progressUpdate();
+  // }, [watchTime]);
 
-  useEffect(() => {
-    if (courseProgress) {
-      dispatch(setVideos(courseProgress?.data?.courseProgress));
-    }
-  }, [courseProgress]);
+  // useEffect(() => {
+  //   if (courseProgress) {
+  //     dispatch(setVideos(courseProgress?.data?.courseProgress));
+  //   }
+  // }, [courseProgress]);
 
   // Force video player to remount when videoUrl changes
   const videoPlayerKey = videoUrl || "no-video";
@@ -106,12 +105,11 @@ const VideoDashboard = () => {
     <div className="lg:mt-6 flex lg:flex-row flex-col">
       <div className="lg:mr-6 xl:mr-8 w-full lg:w-[70%]">
         <div className="h-[400px] rounded-md">
-          {isLoading || courseProgressLoading ? (
+          {isLoading  ? (
             <SimpleLoader />
           ) : videoUrl ? (
             <VideoPlayer
               videoId={videoId}
-              courseProgress={courseProgress}
               key={videoPlayerKey}
               source={videoUrl}
               poster={thumbnailUrl}

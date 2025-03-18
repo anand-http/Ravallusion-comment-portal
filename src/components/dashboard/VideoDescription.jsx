@@ -1,19 +1,13 @@
 "use client"
 import { BookMark} from '@/lib/svg_icons';
 import React, { useEffect, useState, useCallback } from 'react';
-import { useAddBookmarkMutation, useGetBookmarkQuery } from '@/store/Api/introAndBookmark';
+// import { useAddBookmarkMutation, useGetBookmarkQuery } from '@/store/Api/introAndBookmark';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 
 const VideoDescription = ({ videoId, title, description, downloadResource, downloadAssignment }) => {
-  const [addToBookmark] = useAddBookmarkMutation();
-  const { data: getdata, refetch } = useGetBookmarkQuery();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isAssignmentOpen, setIsAssignmentOpen] = useState(false);
-  const [isQuizOpen, setIsQuizOpen] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [bookmarkedId, setBookmarkId] = useState(null);
 
   const handleToggle = () => setIsExpanded(!isExpanded);
 

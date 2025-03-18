@@ -169,8 +169,3 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
-
-
-.background-popover {
-  background: #0B5ED7 !important;
-}

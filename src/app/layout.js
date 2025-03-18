@@ -23,8 +23,8 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Ravallusion",
-  description: "Ravallusion course website",
+  title: "Ravallusion | Comment portal",
+  description: "Ravallusion Comment portal",
 };
 
 export default function RootLayout({ children }) {

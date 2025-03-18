@@ -50,7 +50,7 @@ const Login = () => {
                         }}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        type={showPassword ? "text" : "password"} placeholder="*************" name={"password"} className="w-full py-5 px-3 border-2 rounded-[12px] border-gray-500 mt-1 input-shadow" />
+                        type={showPassword ? "text" : "password"} placeholder="***********" name={"password"} className="w-full py-5 px-3 border-2 rounded-[12px] border-gray-500 mt-1 input-shadow" />
 
                     <button
                         onClick={() => setShowPassword(!showPassword)}
