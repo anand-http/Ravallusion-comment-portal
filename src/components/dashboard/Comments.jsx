@@ -52,7 +52,6 @@ const Comments = ({ videoId }) => {
             <div className='flex flex-col gap-y-4'>
                 {
                     [...comments].reverse().map((items, i) => (
-                        console.log("items", items),
                         <Comment
                             key={i}
                             comment={items?.comment}
@@ -78,7 +77,6 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
     const inputRef = useRef(null);
     const [deleteComment, { isLoading }] = useDeleteCommentMutation();
     const src = !avatar ? "/prismatic.png" : avatar;
-    console.log("avatar", avatar)
 
     // Scroll to input when addReply is true
     useEffect(() => {

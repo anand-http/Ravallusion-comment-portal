@@ -100,7 +100,6 @@ const VideoDashboard = () => {
 
   // Force video player to remount when videoUrl changes
   const videoPlayerKey = videoUrl || "no-video";
-  console.log("vieeourl", videoUrl);
   return (
     <div className="lg:mt-6 flex lg:flex-row flex-col">
       <div className="lg:mr-6 xl:mr-8 w-full lg:w-[70%]">

@@ -1,6 +1,6 @@
 "use client";
 
-import { BulbIcon, CrownIcon, Gear, Logout, NeonElipse } from '@/lib/svg_icons'
+import { BulbIcon, CrownIcon, EllipseOfSearch, Gear, HamburgerMenu, Logout, NeonElipse } from '@/lib/svg_icons'
 import { ArrowRight, ChevronDown, ChevronUp, X, SearchIcon } from 'lucide-react'
 import Image from 'next/image'
 import React, { useState } from 'react'
@@ -19,7 +19,7 @@ const DashboardNavbar = () => {
 
   return (
     <div className={`rounded-none md:rounded-xl  bg-[#181F2B] w-full p-4 lg:px-8 lg:py-4 flex items-center justify-between relative`}>
-      {openSidebar && <SideBar setOpenSidebar={setOpenSidebar} openSidebar={openSidebar} urlpath={urlpath} />}
+      {openSidebar && <SideBar setOpenSidebar={setOpenSidebar} openSidebar={openSidebar} />}
       <h1 className='text-2xl italic font-bold'>Ravallusion</h1>
 
       <div className='flex gap-x-2 items-center'>
@@ -31,12 +31,17 @@ const DashboardNavbar = () => {
 
         <BoxComponent show={show} icon={<Logout />} title={"Logout"} isLogout={true} />
 
+        <div onClick={() => setOpenSidebar(true)} className='p-3 border relative cursor-pointer lg:hidden border-[var(--neon-purple)] bg-[#040C19] '>
+          <EllipseOfSearch />
+          <HamburgerMenu width={24} />
+        </div>
+
       </div>
     </div>
   )
 }
 
-const SideBar = ({ openSidebar, setOpenSidebar, urlpath }) => {
+const SideBar = ({ openSidebar, setOpenSidebar }) => {
   const sidebarVariants = {
     open: {
       x: 0, // Sidebar slides into view
@@ -86,9 +91,9 @@ const SideBar = ({ openSidebar, setOpenSidebar, urlpath }) => {
         </div>
 
         <div className='flex flex-col gap-y-4'>
-          <BoxComponentMobile href={"/player-dashboard/advanced"} show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} />
-          <BoxComponentMobile href={"/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Photoshop"} />
-          <BoxComponentMobile show={show} icon={<Logout />} title={"Logout"} isLogout={true} />
+          <BoxComponentMobile href={"/player-dashboard/advanced"} show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} setOpenSidebar={setOpenSidebar}/>
+          <BoxComponentMobile href={"/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Photoshop"} setOpenSidebar={setOpenSidebar}/>
+          <BoxComponentMobile show={show} icon={<Logout />} title={"Logout"} isLogout={true}  />
         </div>
       </motion.div>
     </>
@@ -208,7 +213,7 @@ const BoxComponentMobile = ({ setOpenSidebar, icon, title, isLogout, title1, tit
         </div>
 
         {isOpen && (
-          <BoxDropdown title1={title1} title2={title2} href={href} setOpenSidebar={setOpenSidebar} />
+          <BoxDropdown setIsOpenBoxDropdown={setIsOpen} title1={title1} title2={title2} href={href} setOpenSidebar={setOpenSidebar} />
         )}
       </div>
     </div>
@@ -217,12 +222,12 @@ const BoxComponentMobile = ({ setOpenSidebar, icon, title, isLogout, title1, tit
 
 const BoxDropdown = ({ title1, title2, href, setOpenSidebar, setIsOpenBoxDropdown }) => {
   const router = useRouter();
-  const handleCloseSidebar = () => {
-    setOpenSidebar(false);
-  }
+
   const handleClick = () => {
     router.push(href);
     setIsOpenBoxDropdown(false);
+    setOpenSidebar(false);
+
   }
   return (
     <motion.div
