@@ -18,7 +18,6 @@ const Login = () => {
         if (!email || !password) return toast.error("Please enter email and password");
         try {
             const res = await signIn({ email, password }).unwrap();
-            console.log(res);
             if (res.success) {
                 route.push('/player-dashboard/beginner');
             }

@@ -8,20 +8,9 @@ import VideoPlayer from "@/components/dashboard/VideoPlayer";
 import {
   useGetVideoQuery,
 } from "@/store/Api/introAndBookmark";
-// import {
-//   useGetCourseProgressQuery,
-//   useGetVideoProgressQuery,
-//   useUpdateVideoProgressMutation,
-// } from "@/store/Api/videoProgress";
-import {
-  setUpdatedPercentageWatched,
-  setVideoIdOfcurrentVideo,
-} from "@/store/slice/general";
-import { current } from "@reduxjs/toolkit";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { setVideos, updateVideo } from "@/store/slice/course";
 
 const VideoDashboard = () => {
   const searchParams = useSearchParams();
@@ -30,7 +19,6 @@ const VideoDashboard = () => {
   const id = searchParams.get("videoId");
   const { courseId, firstVideoId } = useSelector((state) => state.general);
 
-  // const [getVideoQuery, { isLoading: loading }] = useLazyGetVideoQuery();
 
   const [videoUrl, setVideoUrl] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState(null);

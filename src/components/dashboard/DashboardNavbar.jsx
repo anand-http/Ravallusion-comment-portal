@@ -91,9 +91,9 @@ const SideBar = ({ openSidebar, setOpenSidebar }) => {
         </div>
 
         <div className='flex flex-col gap-y-4'>
-          <BoxComponentMobile href={"/player-dashboard/advanced"} show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} setOpenSidebar={setOpenSidebar}/>
-          <BoxComponentMobile href={"/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Photoshop"} setOpenSidebar={setOpenSidebar}/>
-          <BoxComponentMobile show={show} icon={<Logout />} title={"Logout"} isLogout={true}  />
+          <BoxComponentMobile href={"/player-dashboard/advanced"} show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} setOpenSidebar={setOpenSidebar} />
+          <BoxComponentMobile href={"/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Photoshop"} setOpenSidebar={setOpenSidebar} />
+          <BoxComponentMobile show={show} icon={<Logout />} title={"Logout"} isLogout={true} />
         </div>
       </motion.div>
     </>
@@ -188,46 +188,88 @@ const BoxComponentMobile = ({ setOpenSidebar, icon, title, isLogout, title1, tit
   };
 
   return (
-    <div className="relative">
+    <div className="w-full">
       <div
         onClick={handleClick}
-        className={`px-4 py-3 flex flex-col bg-[#040C19] border-x border-t ${isOpen ? '' : 'border-b'
-          } border-[var(--neon-purple)] cursor-pointer relative`}
+        className={`px-4 py-3 w-full flex flex-col bg-[#040C19] border-t border-x border-[var(--neon-purple,#C99BFD)]
+          cursor-pointer relative ${isOpen ? "" : "border-b"}`}
       >
         <div className="flex justify-between items-center">
+          {/* Left side with icon and title */}
           <div className="flex gap-x-2 items-center">
             {icon}
             <span className="text-sm font-semibold">{show && !isOpen ? "" : title}</span>
           </div>
+
+          {/* Free tag for introductory */}
           {isLogout ? (
             ""
           ) : (
+            // Chevron for dropdown
             <div className="cursor-pointer ml-3">
               {isOpen ? <ChevronUp /> : <ChevronDown />}
             </div>
           )}
         </div>
 
-        <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full flex justify-center'>
+        {/* Neon Elipse Positioned at Bottom */}
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full flex justify-center">
           <NeonElipse />
         </div>
-
-        {isOpen && (
-          <BoxDropdown setIsOpenBoxDropdown={setIsOpen} title1={title1} title2={title2} href={href} setOpenSidebar={setOpenSidebar} />
-        )}
       </div>
+
+      {/* Dropdown Section - Pushes Content Down */}
+      {isOpen && (
+        <BoxDropdownMobile
+          title1={title1}
+          title2={title2}
+          href={href}
+          setOpenSidebar={setOpenSidebar}
+        />
+      )}
     </div>
   );
 };
 
-const BoxDropdown = ({ title1, title2, href, setOpenSidebar, setIsOpenBoxDropdown }) => {
+const BoxDropdownMobile = ({ setOpenSidebar, title1, title2, href }) => {
+  const router = useRouter();
+
+  const handleClick = (path) => {
+    router.push(path);
+    setOpenSidebar(false);
+  };
+
+  return (
+    <motion.div
+      className="w-full border-x border-b border-[var(--neon-purple,#C99BFD)] bg-[#040C19] 
+        px-4 py-2 flex flex-col gap-y-2 "
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: "auto", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
+      <button
+        className="text-xs text-white flex justify-between w-full"
+        onClick={() => handleClick(href)}
+      >
+        {title1} <ArrowRight size={21} />
+      </button>
+      <button
+        className="text-xs text-white flex justify-between w-full"
+        onClick={() => handleClick(href)}
+      >
+        {title2} <ArrowRight size={21} />
+      </button>
+    </motion.div>
+  );
+};
+
+const BoxDropdown = ({ title1, title2, href, setIsOpenBoxDropdown }) => {
   const router = useRouter();
 
   const handleClick = () => {
     router.push(href);
     setIsOpenBoxDropdown(false);
-    setOpenSidebar(false);
-
   }
   return (
     <motion.div
