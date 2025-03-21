@@ -14,10 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 const VideoDashboard = () => {
   const searchParams = useSearchParams();
-  const dispatch = useDispatch();
   const route = useRouter();
   const id = searchParams.get("videoId");
-  const { courseId, firstVideoId } = useSelector((state) => state.general);
+  const {  firstVideoId } = useSelector((state) => state.general);
 
 
   const [videoUrl, setVideoUrl] = useState(null);
@@ -25,12 +24,6 @@ const VideoDashboard = () => {
 
   const [watchTime, setWatchTime] = useState(0);
 
-  // const [updateProgress] = useUpdateVideoProgressMutation();
-
-  // const { data: courseProgress, isLoading: courseProgressLoading } =
-  //   useGetCourseProgressQuery(courseId, {
-  //     skip: !courseId,
-  //   });
 
   const [videoId, setVideoId] = useState(null);
 
@@ -50,7 +43,6 @@ const VideoDashboard = () => {
       setThumbnailUrl(data.data.video.thumbnailUrl);
     }
   }, [data, videoId]); // Added videoId as dependency
-  // console.log("latest bhar ", latestWatchedVideo);
 
   useEffect(() => {
     if (firstVideoId) {
@@ -64,27 +56,6 @@ const VideoDashboard = () => {
     }
   }, [id]);
 
-  // useEffect(() => {
-  //   // console.log("watch time", watchTime);
-  //   const progressUpdate = async () => {
-  //     if (watchTime) {
-  //       const res = await updateProgress({ id: videoId, watchTime }).unwrap();
-  //       dispatch(
-  //         setUpdatedPercentageWatched(res?.videoProgress?.percentageWatched)
-  //       );
-  //       dispatch(setVideoIdOfcurrentVideo(videoId));
-
-  //       dispatch(updateVideo(res.videoProgress));
-  //     }
-  //   };
-  //   progressUpdate();
-  // }, [watchTime]);
-
-  // useEffect(() => {
-  //   if (courseProgress) {
-  //     dispatch(setVideos(courseProgress?.data?.courseProgress));
-  //   }
-  // }, [courseProgress]);
 
   // Force video player to remount when videoUrl changes
   const videoPlayerKey = videoUrl || "no-video";

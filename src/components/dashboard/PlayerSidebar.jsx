@@ -6,9 +6,8 @@ import CourseModuleList from "./CourseModuleList";
 import { useGetSubscribedPlanCourseQuery } from "@/store/Api/course";
 import { useGetPlanDataQuery } from "@/store/Api/home";
 import { usePathname } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCourseId, setFirstVideoId } from "@/store/slice/general";
-// import { setCourse } from "@/store/slice/course";
 
 const PlayerSidebar = () => {
   const [planId, setPlanId] = useState(null);
@@ -27,12 +26,11 @@ const PlayerSidebar = () => {
 
     if (courseData) {
       dispatch(setCourseId(courseData?._id));
-      // dispatch(setCourse(courseData));
     }
-    if (subscribedCourse?.modules?.[0].submodules?.[0].videos?.[0]._id) {
-      dispatch(setFirstVideoId(subscribedCourse?.modules?.[0].submodules?.[0].videos?.[0]._id));
+    if (subscribedCourse?.modules?.[0]?.submodules?.[0].videos?.[0]?._id) {
+      dispatch(setFirstVideoId(subscribedCourse?.modules?.[0]?.submodules?.[0]?.videos?.[0]?._id));
     }
-  }, [subscribedCourseData, dispatch]);
+  }, [subscribedCourseData]);
 
   useEffect(() => {
     if (path.includes("beginner")) {
