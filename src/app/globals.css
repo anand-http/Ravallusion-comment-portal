@@ -3,20 +3,41 @@
 @tailwind utilities;
 
 
-/* @font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/satoshi/Satoshi-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/satoshi/Satoshi-Black.woff') format('woff');
-  font-weight: 900;
-  font-style: normal;
+/* Scroll bar */
+/* ::-webkit-scrollbar {
+  display: block;
 } */
 
+/* General Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 5px;
+  /* For vertical scrollbar */
+  height: 5px;
+  /* For horizontal scrollbar */
+}
+
+/* Hide Horizontal Scrollbar */
+::-webkit-scrollbar:horizontal {
+  display: none;
+  /* Hides horizontal scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Thumb (draggable part) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #C99BFD, #5b099b);
+  border-radius: 10px;
+}
+
+/* Thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #8c52ff;
+}
 
 body {
   font-family: Arial, Helvetica, sans-serif ;
@@ -164,8 +185,4 @@ body {
   filter: drop-shadow(0px 10px 15px rgba(125, 20, 208, 0.8)) drop-shadow(0px 10px 5px rgba(218, 37, 156, 0.3)) drop-shadow(-10px -10px 15px rgba(102, 67, 242, 0.25));
 
   transition: all 0.2s;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }

@@ -5,7 +5,7 @@ import { SubmitButton } from '../common/CustomButton';
 import { useSigninMutation } from '@/store/Api/auth';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 
 const Login = () => {
     const route = useRouter();
@@ -63,7 +63,7 @@ const Login = () => {
             </div>
 
             <SubmitButton disabled={isLoading} className={"w-full mb-[30px] text-md cursor-pointer mt-5"} onClick={handleSignIn}>
-                {isLoading ? "Sending..." : "Login"}
+                {isLoading ? <LoaderCircle className='animate-spin !h-8 !w-8' /> : "Login"}
             </SubmitButton>
         </div>
     )

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCreateCommentMutation, useCreateReplyMutation, useDeleteCommentMutation, useGetVideoCommentsQuery } from '@/store/Api/comments';
 import { toast } from 'react-toastify';
-import { Trash2 } from 'lucide-react';
+import { LoaderCircle, Trash2 } from 'lucide-react';
 
 
 const Comments = ({ videoId }) => {
@@ -49,7 +49,7 @@ const Comments = ({ videoId }) => {
                 </div>
             </div> */}
 
-            <div className='flex flex-col gap-y-4'>
+            <div className='flex flex-col gap-y-4 h-32 overflow-y-auto'>
                 {
                     [...comments].reverse().map((items, i) => (
                         <Comment
@@ -80,10 +80,10 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
 
     // Scroll to input when addReply is true
     useEffect(() => {
-        if (window.innerWidth >= 1024 && showReplies && inputRef.current) {
-            inputRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (addReply || showReplies && inputRef.current) {
+            inputRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
-    }, [showReplies]);
+    }, [showReplies,addReply]);
 
     // Toggle replies visibility
     const toggleReplies = () => setShowReplies(!showReplies);
@@ -111,7 +111,7 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
     };
 
     return (
-        <div className=" pb-3">
+        <div className="pb-3">
             {/* Comment Section */}
             <div className="group flex gap-x-14 ">
                 <div className='flex gap-x-2'>
@@ -154,21 +154,23 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
                 <button
                     onClick={handleDeleteComment}
                     className='text-red-600 cursor-pointer hidden group-hover:block'>
-                    {isLoading ? "Deleting..." : <Trash2 size={18} />}
+                    {isLoading ? <LoaderCircle className='animate-spin !h-5 !w-5' /> : <Trash2 size={18} />}
                 </button>
             </div>
+
+
             {/* Replies Section (Animated) */}
             <AnimatePresence>
                 {showReplies && (
                     <motion.div
                         ref={inputRef}
-                        initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 50 }}
+                        exit={{ opacity: 0, y: 5 }}
                         transition={{ duration: 0.4 }}
-                        className=" mt-2 overflow-hidden"
+                        className="my-2 overflow-hidden "
                     >
-                        <div className="flex gap-x-2 mb-2">
+                        <div className="flex gap-x-2">
                             <div className="w-8 h-8 rounded-full bg-red-300 relative">
                                 <Image
                                     src="/thumbnail3.png"
@@ -190,7 +192,10 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
                 )}
             </AnimatePresence>
 
-{/* Reply input */}
+
+
+
+          {/* Reply input */}
             <AnimatePresence>
                 {
                     addReply &&
@@ -200,7 +205,7 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 50 }}
                         transition={{ duration: 0.4 }}
-                        className="relative my-4 w-96"
+                        className="relative my-4 w-full md:w-96"
                     >
                         <Input
                             type="text"

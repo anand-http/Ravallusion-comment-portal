@@ -3,7 +3,7 @@
 import { BulbIcon, CrownIcon, EllipseOfSearch, Gear, HamburgerMenu, Logout, NeonElipse } from '@/lib/svg_icons'
 import { ArrowRight, ChevronDown, ChevronUp, X, SearchIcon } from 'lucide-react'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
 import { setShowProfileCard } from '@/store/slice/general';
@@ -105,6 +105,24 @@ const BoxComponent = ({ icon, title, isLogout, title1, title2, show, href }) => 
   const [isOpenBoxDropdown, setIsOpenBoxDropdown] = useState(false);
   const [logout] = useLogoutMutation();
   const router = useRouter();
+  const dropDownRef = useRef(null);
+
+
+   // Add useEffect for click outside handling
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+        setIsOpenBoxDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
 
   const handleClick = async () => {
     if (isLogout) {
@@ -124,7 +142,7 @@ const BoxComponent = ({ icon, title, isLogout, title1, title2, show, href }) => 
 
   return (
 
-    <div className="relative hidden lg:block">
+    <div className="relative hidden lg:block" ref={dropDownRef}>
       <div
         onClick={handleClick}
         className={`px-4 py-3 flex flex-col bg-[#040C19] border-x border-t ${isOpenBoxDropdown ? '' : 'border-b'
@@ -169,6 +187,21 @@ const BoxComponentMobile = ({ setOpenSidebar, icon, title, isLogout, title1, tit
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter()
   const [logout] = useLogoutMutation();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+};
+
+  }, []);
 
   const handleClick = async () => {
     if (isLogout) {
@@ -188,7 +221,7 @@ const BoxComponentMobile = ({ setOpenSidebar, icon, title, isLogout, title1, tit
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full" ref={ref}>
       <div
         onClick={handleClick}
         className={`px-4 py-3 w-full flex flex-col bg-[#040C19] border-t border-x border-[var(--neon-purple,#C99BFD)]
