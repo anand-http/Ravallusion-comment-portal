@@ -534,10 +534,10 @@
       }
   
       .settings-wrapper {
-        position: fixed;
-        width: 90%;
-        bottom: 10px;
-        right: 5%;
+        position: absolute;
+        width: 60%;
+        bottom: 40px;
+        right: 2%;
         top: unset;
         /* background-color: rgba(0, 0, 0, 0.9); */
         transform: translateY(150%);

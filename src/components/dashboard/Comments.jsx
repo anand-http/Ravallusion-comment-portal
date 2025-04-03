@@ -113,7 +113,8 @@ const Comment = ({ comment, reply, userName, commentId, avatar }) => {
     return (
         <div className="pb-3">
             {/* Comment Section */}
-            <div className="group flex gap-x-14 ">
+            <div className="group flex justify-between md:!justify-start md:gap-x-14">
+
                 <div className='flex gap-x-2'>
                     <div className="w-8 h-8 rounded-full bg-red-300 relative">
                         <Image

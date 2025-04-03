@@ -92,7 +92,7 @@ const SideBar = ({ openSidebar, setOpenSidebar }) => {
 
         <div className='flex flex-col gap-y-4'>
           <BoxComponentMobile href={"/player-dashboard/advanced"} show={show} icon={<CrownIcon />} title={"Advanced"} title1={"Photoshop"} title2={"Premier pro"} setOpenSidebar={setOpenSidebar} />
-          <BoxComponentMobile href={"/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Photoshop"} setOpenSidebar={setOpenSidebar} />
+          <BoxComponentMobile href={"/player-dashboard/beginner"} show={show} icon={<Gear />} title={"Beginner"} title1={"Photoshop"} title2={"Premier pro"} setOpenSidebar={setOpenSidebar} />
           <BoxComponentMobile show={show} icon={<Logout />} title={"Logout"} isLogout={true} />
         </div>
       </motion.div>

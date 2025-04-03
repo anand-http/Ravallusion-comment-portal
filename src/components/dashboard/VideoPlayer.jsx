@@ -67,7 +67,7 @@ const VideoPlayer = ({
   const [intervalId, setIntervalId] = useState(null);
   const [isVideoCompleted, setIsVideoCompleted] = useState(false);
   const [lastPositon, setLastPosition] = useState(0);
-  
+
 
   const playerRef = useRef(null);
   const progressRef = useRef(null);
@@ -106,7 +106,6 @@ const VideoPlayer = ({
     setIsVideoFullScreen && setIsVideoFullScreen(isFullScreen);
   }, [isFullScreen]);
 
-  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     if (!(isVideoPage || isFreeVideoPage)) {
@@ -152,31 +151,38 @@ const VideoPlayer = ({
   }, []);
 
   useEffect(() => {
-    if (isVideoPage || isFreeVideoPage) {
-      const handleKeyDown = (e) => {
-        switch (e.key) {
-          case " ":
-            e.preventDefault();
-            handlePlayPause();
-            break;
-          case "ArrowLeft":
-            e.preventDefault();
-            handleBackward();
-            break;
-          case "ArrowRight":
-            e.preventDefault();
-            handleForward();
-            break;
-          default:
-            break;
-        }
-      };
+    const handleKeyDown = (e) => {
+      if (
+        e.target.tagName === "INPUT" ||
+        e.target.tagName === "TEXTAREA" ||
+        e.target.isContentEditable
+      ) {
+        return;
+      }
 
-      document.addEventListener("keydown", handleKeyDown);
-      return () => {
-        document.removeEventListener("keydown", handleKeyDown);
-      };
-    }
+      switch (e.key) {
+        case " ":
+          e.preventDefault();
+          handlePlayPause();
+          break;
+        case "ArrowLeft":
+          e.preventDefault();
+          handleBackward();
+          break;
+        case "ArrowRight":
+          e.preventDefault();
+          handleForward();
+          break;
+        default:
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+
   }, [playing]);
 
   const handleReady = () => {
@@ -275,9 +281,8 @@ const VideoPlayer = ({
 
     const progressBar = progressRef.current;
     if (progressBar) {
-      const progressColor = `linear-gradient(to right, #CAA257 ${
-        progressPercentage + 0.1
-      }%, rgba(255,255,255,0.6) ${progressPercentage}%, rgba(255,255,255,0.6) ${loadedPercentage}%, rgba(255,255,255,0.2) ${loadedPercentage}%)`;
+      const progressColor = `linear-gradient(to right, #CAA257 ${progressPercentage + 0.1
+        }%, rgba(255,255,255,0.6) ${progressPercentage}%, rgba(255,255,255,0.6) ${loadedPercentage}%, rgba(255,255,255,0.2) ${loadedPercentage}%)`;
       progressBar.style.background = progressColor;
     }
   };
@@ -496,7 +501,7 @@ const VideoPlayer = ({
           videoElement.webkitEnterFullscreen();
           setIsFullScreen(true);
           window.screen.orientation &&
-            window.screen.orientation.lock("landscape").catch(() => {});
+            window.screen.orientation.lock("landscape").catch(() => { });
         } else {
           videoElement.webkitExitFullscreen();
           setIsFullScreen(false);
@@ -509,7 +514,7 @@ const VideoPlayer = ({
           screenfull.request(containerRef.current);
           setIsFullScreen(true);
           window.screen.orientation &&
-            window.screen.orientation.lock("landscape").catch(() => {});
+            window.screen.orientation.lock("landscape").catch(() => { });
         } else {
           screenfull.exit();
           setIsFullScreen(false);
@@ -569,10 +574,10 @@ const VideoPlayer = ({
               {activeMenu === "main"
                 ? "Settings"
                 : activeMenu === "quality"
-                ? "Quality"
-                : activeMenu === "language"
-                ? "Language"
-                : "Playback Rate"}
+                  ? "Quality"
+                  : activeMenu === "language"
+                    ? "Language"
+                    : "Playback Rate"}
             </span>
           </div>
           <ul className="menu-items">
@@ -688,9 +693,8 @@ const VideoPlayer = ({
 
   return (
     <div
-      className={`video-container ${
-        playing ? "playing" : "paused"
-      } !z-0 !${className}`}
+      className={`video-container ${playing ? "playing" : "paused"
+        } !z-0 !${className}`}
       ref={containerRef}
       onMouseMove={() => {
         containerRef.current.classList.add("show-controls");
@@ -731,11 +735,11 @@ const VideoPlayer = ({
 
       <div
         className="video-player"
-        // onClick={() => {
-        //   if (showControls) {
-        //     handlePlayPause();
-        //   }
-        // }}
+      // onClick={() => {
+      //   if (showControls) {
+      //     handlePlayPause();
+      //   }
+      // }}
       >
         <ReactPlayer
           ref={playerRef}
@@ -819,9 +823,8 @@ const VideoPlayer = ({
       </div>
       {!firstPlay && (
         <div
-          className={`player-controls ${
-            isFullScreen ? "fullscreen-controls" : ""
-          } `}
+          className={`player-controls ${isFullScreen ? "fullscreen-controls" : ""
+            } `}
         >
           <div className="on-screen-controls">
             <GrBackTen className="control-icons" onClick={handleBackward} />
@@ -859,7 +862,7 @@ const VideoPlayer = ({
               {tooltipView && !isTouchDevice && (
                 <div
                   className="tooltip-progress"
-                  //  style={{ left: `${(hoveredTime / duration) * 100}%` }}
+                //  style={{ left: `${(hoveredTime / duration) * 100}%` }}
                 >
                   <p>{formatTime(hoveredTime)}</p>
                 </div>
@@ -885,9 +888,8 @@ const VideoPlayer = ({
                   type="range"
                   className="volume-track"
                   style={{
-                    background: `linear-gradient(to right, #CAA257 ${
-                      volume * 100
-                    }%, rgba(255,255,255,0.8) ${volume * 100}%)`,
+                    background: `linear-gradient(to right, #CAA257 ${volume * 100
+                      }%, rgba(255,255,255,0.8) ${volume * 100}%)`,
                   }}
                   min={0}
                   max={1}
@@ -1602,7 +1604,7 @@ export default VideoPlayer;
 //                   </span>
 //                 </li>
 
-//                 {/* 
+//                 {/*
 //                 <li
 //                   onClick={() => handleMenuChange("language")}
 //                   className="my-2 flex items-center justify-between"
